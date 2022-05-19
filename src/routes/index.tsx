@@ -1,7 +1,7 @@
-export default function LandingPage() {
+export default function Index() {
   return (
     <div>
-      <h2>Landing page</h2>
+      <h2>Index</h2>
     </div>
   );
 }
