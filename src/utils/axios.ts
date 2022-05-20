@@ -6,7 +6,9 @@ export function initAxiosConfig() {
 }
 
 export function buildAxiosHeaders(token?: string) {
-  return { Authorization: `Bearer ${token}` };
+  return {
+    Authorization: `Bearer ${token}`,
+  };
 }
 
 export function buildSearchParams(

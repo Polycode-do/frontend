@@ -8,14 +8,17 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { Avatar, Grid, Tooltip } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { User } from "../models/user";
+import { logout } from "../services/auth";
+import { ContextData, UserContext } from "../App";
 
 function displayAuthMenu(
   handleCloseUserMenu: () => void,
   handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void,
   anchorElUser: HTMLElement | null,
-  userInfo?: undefined,
+  userInfo?: User,
   API_URL?: string
 ) {
   return (
@@ -54,8 +57,11 @@ function displayAuthMenu(
               </Link>
             </MenuItem>
             <MenuItem key="3" onClick={handleCloseUserMenu}>
-              <Link to="#" style={{ textDecoration: "none", color: "inherit" }}>
-                <Button color="inherit" variant="text">
+              <Link
+                to="/landingpage"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Button onClick={logout} color="inherit" variant="text">
                   Disconnect
                 </Button>
               </Link>
@@ -67,16 +73,12 @@ function displayAuthMenu(
   );
 }
 
-export default function NavBar({
-  userInfo,
-  API_URL,
-}: {
-  userInfo?: undefined;
-  API_URL?: string;
-}) {
+export default function NavBar() {
   let leftLinks: { name: string; link: string }[] = [];
 
-  if (userInfo) {
+  const { user } = useContext<ContextData>(UserContext);
+
+  if (user) {
     leftLinks.push(
       {
         name: "Polycode",
@@ -195,13 +197,12 @@ export default function NavBar({
               );
             })}
           </Typography>
-          {false &&
+          {Boolean(user) &&
             displayAuthMenu(
               handleCloseUserMenu,
               handleOpenUserMenu,
               anchorElUser,
-              userInfo,
-              API_URL
+              user
             )}
         </Toolbar>
       </AppBar>
