@@ -47,7 +47,7 @@ function displayAuthMenu(
             onClose={handleCloseUserMenu}
           >
             <MenuItem key="1">
-              <Typography>Welcome</Typography>
+              <Typography>{userInfo?.email}</Typography>
             </MenuItem>
             <MenuItem key="2" onClick={handleCloseUserMenu}>
               <Link to="#" style={{ textDecoration: "none", color: "inherit" }}>
