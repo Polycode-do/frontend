@@ -81,14 +81,20 @@ export default function ExercisePlayground() {
   }, []);
 
   return (
-    <Box sx={{ display: "flex", width: "100%", height: "90vh" }}>
+    <Box
+      sx={{
+        display: `${phone ? "block" : "flex"}`,
+        width: "100%",
+        height: `${phone ? "190vh" : "90vh"}`,
+      }}
+    >
       <Box
         sx={{
-          width: "50%",
-          height: "100%",
+          width: `${phone ? "100%" : "50%"}`,
+          height: `${phone ? "fit-content" : "100%"}`,
           marginTop: "20px",
           overflowWrap: "break-word",
-          overflowY: "scroll",
+          overflowY: `${phone ? "" : "scroll"}`,
         }}
       >
         <Typography textAlign="center" variant="h2">
@@ -96,7 +102,13 @@ export default function ExercisePlayground() {
         </Typography>
         <ReactMarkdown>{state.exercise?.subject || "no subject"}</ReactMarkdown>
       </Box>
-      <Box sx={{ width: "50%", height: "100%", marginTop: "20px" }}>
+      <Box
+        sx={{
+          width: `${phone ? "100%" : "50%"}`,
+          height: "100%",
+          marginTop: "20px",
+        }}
+      >
         <AceEditor
           style={{ width: "100%", height: "80%" }}
           mode={state.language}
