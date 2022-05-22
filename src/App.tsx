@@ -25,6 +25,9 @@ export default function App() {
 
   useEffect(() => {
     async function changeUser() {
+      const token = localStorage.getItem("access_token");
+      if (token) sessionStorage.setItem("access_token", token);
+
       const reply = await getSelf();
 
       setState({ ...state, user: reply.user });
