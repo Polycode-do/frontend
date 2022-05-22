@@ -12,9 +12,9 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { theme } from "../App";
+import { theme, UserContext } from "../App";
 import { login, register } from "../services/auth";
 
 type State = {
@@ -112,6 +112,8 @@ export default function LandingPage() {
   });
 
   const navigate = useNavigate();
+
+  if (useContext(UserContext).user) navigate("/");
 
   return (
     <Container disableGutters>

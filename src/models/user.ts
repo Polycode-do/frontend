@@ -1,3 +1,5 @@
+import { Exercise } from "./exercise";
+
 export type User = {
   firstName: string;
 
@@ -9,9 +11,11 @@ export type User = {
 
   verified: boolean;
 
-  createdAt: Date;
+  createdExercises: Exercise[];
 
-  updatedAt: Date;
+  createdAt: string;
+
+  updatedAt: string;
 };
 
 export enum UserRole {
