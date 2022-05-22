@@ -55,3 +55,46 @@ export async function getExercises() {
     };
   }
 }
+
+export async function testExercise(
+  exerciseId: number,
+  code: string,
+  language: string
+) {
+  try {
+    const reply = await axios.post<{
+      message: string;
+      exerciseCompletion: number;
+      stdout: string;
+      stderr: string;
+    }>(
+      `/exercise/${exerciseId}/test`,
+      {
+        code,
+        language,
+      },
+      {
+        headers: buildAxiosHeaders(
+          sessionStorage.getItem("access_token") || ""
+        ),
+      }
+    );
+    return {
+      success: "Exercise tested",
+      exerciseCompletion: reply.data.exerciseCompletion,
+      stdout: reply.data.stdout,
+      stderr: reply.data.stderr,
+    };
+  } catch (err) {
+    if (axios.isAxiosError(err) && err.response?.data) {
+      return {
+        error: (err.response.data as { message: string }).message,
+      };
+    }
+    console.error(err);
+    return {
+      error:
+        "Sorry, it seems there is some problem reaching our API. Please contact and administrator.",
+    };
+  }
+}
